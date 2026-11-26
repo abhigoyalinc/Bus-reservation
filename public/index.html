@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bus Ticket Reservation</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🚌 Bus Ticket Reservation System</h1>
+    <p id="busInfo">Loading bus details...</p>
+  </header>
+
+  <!-- BUS SELECTION: one card per bus (filled by script.js) -->
+  <section class="card wide bus-section">
+    <h2>Choose Your Bus</h2>
+    <div id="busList" class="bus-list"></div>
+  </section>
+
+  <main>
+    <!-- LEFT: seat map -->
+    <section class="card">
+      <h2 id="seatTitle">Seat Map</h2>
+      <div class="legend">
+        <span><i class="box free"></i> Available</span>
+        <span><i class="box selected"></i> Selected</span>
+        <span><i class="box booked"></i> Booked</span>
+      </div>
+      <div class="driver">Driver 🧑‍✈️</div>
+      <div id="seatMap" class="seat-map"></div>
+      <p id="counts" class="muted"></p>
+    </section>
+
+    <!-- RIGHT: forms -->
+    <section class="side">
+      <div class="card">
+        <h2>Book a Ticket</h2>
+        <form id="bookForm">
+          <label>Seat number
+            <input type="number" id="bookSeat" min="1" max="40" placeholder="Click a seat or type it" required>
+          </label>
+          <label>Passenger name
+            <input type="text" id="bookName" placeholder="e.g. Abhishek Sharma" required>
+          </label>
+          <button type="submit">Book Ticket</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2>Cancel a Ticket</h2>
+        <form id="cancelForm">
+          <label>Seat number
+            <input type="number" id="cancelSeat" min="1" max="40" required>
+          </label>
+          <button type="submit" class="danger">Cancel Ticket</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2>Search Passenger</h2>
+        <form id="searchForm">
+          <label>Passenger name
+            <input type="text" id="searchName" required>
+          </label>
+          <button type="submit" class="secondary">Search</button>
+        </form>
+      </div>
+
+      <div id="message" class="message hidden"></div>
+    </section>
+  </main>
+
+  <section class="card wide">
+    <h2>Passengers on Selected Bus</h2>
+    <table>
+      <thead><tr><th>Seat</th><th>Passenger Name</th></tr></thead>
+      <tbody id="passengerTable"></tbody>
+    </table>
+    <p id="total" class="muted"></p>
+  </section>
+
+  <footer>Industrial Training Project · C++ Programming</footer>
+
+  <!-- CHATBOT: floating button + chat window -->
+  <button id="chatToggle" class="chat-toggle" title="Ask the Bus Assistant">💬</button>
+  <div id="chatBox" class="chat-box hidden">
+    <div class="chat-header">
+      <span>🤖 Bus Assistant</span>
+      <button id="chatClose" class="chat-close">✕</button>
+    </div>
+    <div id="chatMessages" class="chat-messages"></div>
+    <div class="chat-chips">
+      <button class="chip">Show all buses</button>
+      <button class="chip">Is there a bus to Udaipur?</button>
+      <button class="chip">What is the fare?</button>
+      <button class="chip">Is seat 12 free?</button>
+    </div>
+    <form id="chatForm" class="chat-form">
+      <input type="text" id="chatInput" placeholder="Type a question..." autocomplete="off" required>
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

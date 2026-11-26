@@ -1,0 +1,219 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f1f4f9;
+  color: #1d2433;
+}
+
+header {
+  background: #1f3c88;
+  color: white;
+  text-align: center;
+  padding: 24px 16px;
+}
+header h1 { margin: 0 0 6px; font-size: 1.7rem; }
+header p  { margin: 0; opacity: 0.9; }
+
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  max-width: 1000px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 18px 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+.card h2 { margin: 0 0 14px; font-size: 1.15rem; color: #1f3c88; }
+.wide { max-width: 968px; margin: 0 auto 24px; }
+.side { display: flex; flex-direction: column; gap: 20px; }
+
+/* ---------- Bus selection ---------- */
+.bus-section { margin-top: 24px; }
+.bus-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+.bus-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+  padding: 12px 14px;
+  border: 2px solid #e1e6f0;
+  border-radius: 10px;
+  background: #fafbfe;
+  cursor: pointer;
+  font-family: inherit;
+}
+.bus-card:hover { border-color: #9fb0d8; }
+.bus-card.active { border-color: #1f3c88; background: #eef2fa; }
+.bus-route { font-weight: 700; color: #1f3c88; font-size: 1rem; }
+.bus-meta  { font-size: 0.82rem; color: #4a5468; }
+.bus-seats { font-size: 0.85rem; font-weight: 600; color: #156c2b; margin-top: 2px; }
+
+/* ---------- Seat map ---------- */
+.legend { display: flex; gap: 16px; font-size: 0.85rem; margin-bottom: 12px; }
+.legend span { display: flex; align-items: center; gap: 6px; }
+.box { display: inline-block; width: 16px; height: 16px; border-radius: 4px; }
+
+.driver {
+  text-align: right;
+  font-size: 0.85rem;
+  padding: 6px 10px;
+  border-bottom: 2px dashed #c9d2e3;
+  margin-bottom: 12px;
+}
+
+.seat-map {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr) 30px repeat(2, 1fr);   /* 2 seats, aisle, 2 seats */
+  gap: 8px;
+}
+
+.seat {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.free, .seat.free         { background: #d6f5dd; color: #156c2b; }
+.selected, .seat.selected { background: #ffd54f; color: #5d4500; }
+.booked, .seat.booked     { background: #e3e6ec; color: #9aa3b2; cursor: not-allowed; }
+.seat.free:hover { background: #b5ecc1; }
+
+/* ---------- Forms ---------- */
+label { display: block; font-size: 0.9rem; margin-bottom: 10px; }
+input {
+  width: 100%;
+  margin-top: 4px;
+  padding: 9px 10px;
+  border: 1px solid #c9d2e3;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #1f3c88;
+  color: white;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+button.danger    { background: #c62828 !important; }
+button.secondary { background: #455a64 !important; }
+
+.message { padding: 12px 14px; border-radius: 8px; font-weight: 500; }
+.message.ok    { background: #d6f5dd; color: #156c2b; }
+.message.error { background: #fde0e0; color: #9b1c1c; }
+.hidden { display: none; }
+
+/* ---------- Table ---------- */
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #e6eaf2; }
+th { background: #f5f7fb; }
+.muted { color: #66708a; font-size: 0.9rem; }
+
+footer { text-align: center; color: #66708a; font-size: 0.85rem; padding: 0 0 24px; }
+
+/* ---------- Chatbot ---------- */
+.chat-toggle {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  border: none;
+  background: #1f3c88;
+  font-size: 1.6rem;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+.chat-box {
+  position: fixed;
+  right: 20px;
+  bottom: 90px;
+  width: 340px;
+  max-width: calc(100vw - 32px);
+  height: 460px;
+  max-height: calc(100vh - 120px);
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.22);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.chat-box.hidden { display: none; }
+
+.chat-header {
+  background: #1f3c88;
+  color: white;
+  padding: 12px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+}
+.chat-close { background: none; border: none; color: white; font-size: 1rem; cursor: pointer; }
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: #f5f7fb;
+}
+.bubble {
+  max-width: 82%;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+.bubble.bot  { background: white; border: 1px solid #e1e6f0; align-self: flex-start; }
+.bubble.user { background: #1f3c88; color: white; align-self: flex-end; }
+
+.chat-chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 8px 10px; border-top: 1px solid #e6eaf2; }
+.chip {
+  border: 1px solid #c9d2e3;
+  background: white;
+  border-radius: 14px;
+  padding: 4px 10px;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+.chip:hover { background: #eef2fa; }
+
+.chat-form { display: flex; gap: 6px; padding: 10px; border-top: 1px solid #e6eaf2; }
+.chat-form input { margin: 0; }
+.chat-form button {
+  width: auto;
+  padding: 0 14px;
+  border: none;
+  border-radius: 8px;
+  background: #1f3c88;
+  color: white;
+  cursor: pointer;
+}
+
+/* Phones: stack everything in one column */
+@media (max-width: 720px) {
+  main { grid-template-columns: 1fr; }
+}
